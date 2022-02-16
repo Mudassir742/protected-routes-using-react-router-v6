@@ -1,10 +1,21 @@
+import {BrowserRouter as Router,Routes,Route} from "react-router-dom"
+
+import Navigation from "./components/Navigation";
+import Dashboard from "./pages/Dashboard";
+import Home from "./pages/Home";
+import Projects from "./pages/Projects";
+
+
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        Protetced Routes
-      </header>
-    </div>
+    <Router>
+      <Navigation/>
+      <Routes>
+        <Route path="/" element={<Home/>}/>
+        <Route path="/projects" element={<Projects/>}/>
+        <Route path="/dashboard" element={<Dashboard/>}/>
+      </Routes>
+    </Router>    
   );
 }
 
