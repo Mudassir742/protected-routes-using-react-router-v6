@@ -1,6 +1,12 @@
 import { NavLink } from "react-router-dom";
 
 const Navigation = ({ user, setUser }) => {
+
+  const handleLogout =(e) => {
+    setUser(null)
+    localStorage.removeItem("userAuth");
+  }
+
   return (
     <div>
       <NavLink to="/">Home</NavLink>
@@ -8,22 +14,14 @@ const Navigation = ({ user, setUser }) => {
       {user && <NavLink to="/dashboard">Dashboard</NavLink>}
       {user ? (
         <button
-          onClick={(e) => {
-            setUser(false);
-            localStorage.setItem("auth", "false");
-          }}
+          onClick={handleLogout}
         >
           Logout
         </button>
       ) : (
-        <button
-          onClick={(e) => {
-            setUser(true);
-            localStorage.setItem("auth", "true");
-          }}
-        >
+        <NavLink to="/login">
           Login
-        </button>
+        </NavLink>
       )}
     </div>
   );

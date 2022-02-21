@@ -5,13 +5,14 @@ import Navigation from "./components/Navigation";
 import Dashboard from "./pages/Dashboard";
 import Home from "./pages/Home";
 import Projects from "./pages/Projects";
+import Login from "./pages/Login";
 import PrivateRoute from "./PrivateRoute";
 
 function App() {
-  const [user, setUser] = useState(false);
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
-    const auth = localStorage.getItem('auth')
+    const auth = localStorage.getItem('authUser')
     auth && setUser(JSON.parse(auth))
   }, []);
 
@@ -21,6 +22,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/projects" element={<Projects />} />
+        <Route path="/login" element={<Login setUser={setUser} />} />
         <Route
           path="/dashboard"
           element={
