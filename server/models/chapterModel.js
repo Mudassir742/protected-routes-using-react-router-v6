@@ -14,9 +14,6 @@ const chapterSchema = mongoose.Schema({
     type: String,
     rquired: [true, "enter book chapter number"],
   },
-  history: {
-    type: String,
-  },
   totalQuestions: {
     type: String,
   },
