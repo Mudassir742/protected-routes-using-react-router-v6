@@ -3,8 +3,8 @@ const cors = require("cors");
 const dotenv = require("dotenv");
 
 const database = require("./config/database");
-const userRoute = require("./routers/userRoute");
-const dataRoute = require("./routers/dataRoute")
+const userRoute = require("./routes/userRoute");
+const dataRoute = require("./routes/dataRoute")
 
 const app = express();
 
