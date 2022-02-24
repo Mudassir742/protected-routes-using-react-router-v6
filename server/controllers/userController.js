@@ -36,6 +36,7 @@ exports.userLogin = async (req, res) => {
         name: existedUser.name,
         userId: existedUser._id,
         password: existedUser.password,
+        role: existedUser.role,
       },
       process.env.JWT_KEY,
       { expiresIn: "1h" },
@@ -50,25 +51,15 @@ exports.userLogin = async (req, res) => {
 
         console.log(token);
 
-        const saveToken = await User.updateOne(
-          { _id: existedUser._id },
-          { $set: { token: token } }
-        );
-
-        if (saveToken) {
-          return res.status(201).json({
-            error: null,
-            data: {
-              name: existedUser.name,
-              userID: existedUser._id,
-              token: token,
-            },
-          });
-        }
-
-        return res
-          .status(422)
-          .json({ error: "unable to save token", data: null });
+        return res.status(201).json({
+          error: null,
+          data: {
+            name: existedUser.name,
+            userID: existedUser._id,
+            role: existedUser.role,
+            token: token,
+          },
+        });
       }
     );
   } catch (err) {
@@ -76,11 +67,11 @@ exports.userLogin = async (req, res) => {
     return res.status(422).json({ error: err.message, data: null });
   }
 };
-exports.userSignup = async (req, res) => {
+exports.addNewUser = async (req, res) => {
   try {
-    const { name, email, password } = req.body;
+    const { name, email, password, role } = req.body;
 
-    if (!name || !email || !password) {
+    if (!name || !email || !password || !role) {
       return res.status(403).json({ error: "fields are empty", data: null });
     }
 
@@ -95,9 +86,10 @@ exports.userSignup = async (req, res) => {
     const encryptedPasswrod = await bcrypt.hash(password, 10);
 
     const newUser = new User({
-      name: name,
-      email: email,
+      name,
+      email,
       password: encryptedPasswrod,
+      role,
     });
 
     const registerUser = await newUser.save();
