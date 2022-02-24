@@ -3,15 +3,20 @@ const mongoose = require("mongoose");
 const userSchema = mongoose.Schema({
   name: {
     type: String,
+    required: [true, "enter user name"],
   },
   email: {
     type: String,
+    required: [true, "enter user name"],
   },
   password: {
     type: String,
+    required: [true, "enter user name"],
   },
-  token: {
+  role: {
     type: String,
+    enum: ["manager", "QA", "DEO"],
+    default: "DEO",
   },
 });
 
