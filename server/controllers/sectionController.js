@@ -60,98 +60,64 @@ exports.deleteSection = async (req, res) => {
   }
 };
 
-exports.showBooks = async (req, res) => {
+exports.showSections = async (req, res) => {
   try {
-    const books = await Books.find({});
+    const sections = await Sections.find({});
 
-    console.log(books);
+    console.log(sections);
 
-    if (books.length === 0) {
+    if (sections.length === 0) {
       return res.status(422).json({
-        error: "no books available",
+        error: "no sections available",
         data: null,
       });
     }
 
     return res.status(201).json({
       error: null,
-      data: books,
+      data: sections,
     });
   } catch (err) {
     console.log(err.message);
     return res.status(422).json({
-      error: "unexpected error occurred while getting books",
+      error: "unexpected error occurred while getting sections",
       data: null,
     });
   }
 };
 
-exports.showBookbyId = async (req, res) => {
+exports.showSectionbyId = async (req, res) => {
   try {
-    const bookId = req.params.id;
+    const sectionId = req.params.id;
 
-    if (!bookId) {
-      return res.status(422).json({ error: "book id not given", data: null });
+    if (!sectionId) {
+      return res
+        .status(422)
+        .json({ error: "section id not given", data: null });
     }
 
-    const book = await Books.findOne({ _id: bookId });
+    const section = await Sections.findOne({ _id: sectionId });
 
-    console.log(book);
+    console.log(section);
 
-    if (!book) {
+    if (!section) {
       return res.status(422).json({
-        error: "no books available",
+        error: "no sections available",
         data: null,
       });
     }
 
     return res.status(201).json({
       error: null,
-      data: book,
+      data: section,
     });
   } catch (err) {
     console.log(err.message);
     return res.status(422).json({
-      error: "unexpected error occurred while getting book",
+      error: "unexpected error occurred while getting section",
       data: null,
     });
   }
 };
 
-exports.updateBookstatus = async (req, res) => {
-  try {
-    const bookId = req.params.id;
-    const bookStatus = req.body.status;
-
-    if (!bookStatus || !bookId) {
-      return res.status(422).json({
-        error: "book info not provided",
-        data: null,
-      });
-    }
-
-    const isStatusUpdated = await Books.updateOne(
-      { _id: bookId },
-      { $set: { status: bookStatus } }
-    );
-
-    console.log(isStatusUpdated);
-
-    if (isStatusUpdated.modifiedCount === 0) {
-      return res.status(422).json({
-        error: "unable to update book",
-        data: null,
-      });
-    }
-
-    return res
-      .status(201)
-      .json({ error: null, data: isStatusUpdated.modifiedCount });
-  } catch (err) {
-    console.log(err.message);
-    return res.status(422).json({
-      error: "unexpected error occurred while updating status",
-      data: null,
-    });
-  }
-};
+exports.updateBookstatus = async (req, res) => {};

@@ -26,6 +26,7 @@ const solutionSchema = mongoose.Schema({
   },
   answer: {
     type: String,
+    default:"N/A"
   },
   status: {
     type: String,

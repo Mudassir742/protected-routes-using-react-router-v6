@@ -8,6 +8,7 @@ const dataRoute = require("./routes/dataRoute");
 const bookRoute = require("./routes/bookRoute");
 const chapterRoute = require("./routes/chapterRoute");
 const sectionRoute = require("./routes/sectionRoute");
+const solutionRoute = require("./routes/solutionRoute");
 
 const app = express();
 
@@ -23,6 +24,7 @@ app.use("/data", dataRoute);
 app.use("/api/books", bookRoute);
 app.use("/api/chapters", chapterRoute);
 app.use("/api/sections", sectionRoute);
+app.use("/api/solutions", solutionRoute);
 
 app.listen(process.env.PORT, () =>
   console.log(`Server is up and running at port:${process.env.PORT}!`)

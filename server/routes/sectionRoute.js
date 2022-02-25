@@ -18,4 +18,7 @@ router.delete(
   sectionController.deleteSection
 );
 
+router.get("/showsections", verifyToken, sectionController.showSections);
+router.get("/showsections/:id", verifyToken, sectionController.showSectionbyId);
+
 module.exports = router;
