@@ -21,6 +21,6 @@ router.get("/showbooks", verifyToken, bookController.showBooks);
 
 router.get("/showbooks/:id",verifyToken,bookController.showBookbyId)
 
-router.put("/updatebook/:id",verifyToken,verifyRole(["manager"]),bookController.updateBookstatus)
+router.put("/updatebook/:id",verifyToken,verifyRole(["manager","QA"]),bookController.updateBookstatus)
 
 module.exports = router;
