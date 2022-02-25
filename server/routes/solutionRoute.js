@@ -11,14 +11,14 @@ router.post(
   solutionController.addNewSolution
 );
 
-// router.delete(
-//   "/deletesection/:id",
-//   verifyToken,
-//   verifyRole(["DEO", "manager"]),
-//   sectionController.deleteSection
-// );
+router.delete(
+  "/deletesolution/:id",
+  verifyToken,
+  verifyRole(["DEO", "manager"]),
+  solutionController.deleteSolution
+);
 
-// router.get("/showsections", verifyToken, sectionController.showSections);
-// router.get("/showsections/:id", verifyToken, sectionController.showSectionbyId);
+router.get("/showsolutions", verifyToken, solutionController.showSolutions);
+router.get("/showsolutions/:id", verifyToken, solutionController.showSolutionbyId);
 
 module.exports = router;

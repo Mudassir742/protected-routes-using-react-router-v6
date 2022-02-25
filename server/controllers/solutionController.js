@@ -43,92 +43,93 @@ exports.addNewSolution = async (req, res) => {
   }
 };
 
-// exports.deleteSection = async (req, res) => {
-//   try {
-//     const sectionId = req.params.id;
+exports.deleteSolution = async (req, res) => {
+  try {
+    const solutionId = req.params.id;
 
-//     if (!sectionId) {
-//       return res.status(422).json({ error: "book id not given", data: null });
-//     }
+    if (!solutionId) {
+      return res
+        .status(422)
+        .json({ error: "solution id not given", data: null });
+    }
 
-//     const isSectionDeleted = await Sections.deleteOne({ _id: sectionId });
+    const isSolutionDeleted = await Solutions.deleteOne({ _id: solutionId });
 
-//     console.log(isSectionDeleted.deletedCount);
+    console.log(isSolutionDeleted.deletedCount);
 
-//     if (!isSectionDeleted.deletedCount) {
-//       return res
-//         .status(422)
-//         .json({ error: "error while deleting section", data: null });
-//     }
+    if (!isSolutionDeleted.deletedCount) {
+      return res
+        .status(422)
+        .json({ error: "error while deleting solution", data: null });
+    }
 
-//     return res.status(201).json({ error: null, data: isSectionDeleted });
-//   } catch (err) {
-//     console.log(err.message);
-//     return res.status(422).json({
-//       error: "unexpected error occurred while deleting section",
-//       data: null,
-//     });
-//   }
-// };
+    return res.status(201).json({ error: null, data: isSolutionDeleted });
+  } catch (err) {
+    console.log(err.message);
+    return res.status(422).json({
+      error: "unexpected error occurred while deleting solution",
+      data: null,
+    });
+  }
+};
 
-// exports.showSections = async (req, res) => {
-//   try {
-//     const sections = await Sections.find({});
+exports.showSolutions = async (req, res) => {
+  try {
+    const solutions = await Solutions.find({});
 
-//     console.log(sections);
+    console.log(solutions);
 
-//     if (sections.length === 0) {
-//       return res.status(422).json({
-//         error: "no sections available",
-//         data: null,
-//       });
-//     }
+    if (solutions.length === 0) {
+      return res.status(422).json({
+        error: "no solutions available",
+        data: null,
+      });
+    }
 
-//     return res.status(201).json({
-//       error: null,
-//       data: sections,
-//     });
-//   } catch (err) {
-//     console.log(err.message);
-//     return res.status(422).json({
-//       error: "unexpected error occurred while getting sections",
-//       data: null,
-//     });
-//   }
-// };
+    return res.status(201).json({
+      error: null,
+      data: solutions,
+    });
+  } catch (err) {
+    console.log(err.message);
+    return res.status(422).json({
+      error: "unexpected error occurred while getting solutions",
+      data: null,
+    });
+  }
+};
 
-// exports.showSectionbyId = async (req, res) => {
-//   try {
-//     const sectionId = req.params.id;
+exports.showSolutionbyId = async (req, res) => {
+  try {
+    const solutionId = req.params.id;
 
-//     if (!sectionId) {
-//       return res
-//         .status(422)
-//         .json({ error: "section id not given", data: null });
-//     }
+    if (!solutionId) {
+      return res
+        .status(422)
+        .json({ error: "solution id not given", data: null });
+    }
 
-//     const section = await Sections.findOne({ _id: sectionId });
+    const solution = await Solutions.findOne({ _id: solutionId });
 
-//     console.log(section);
+    console.log(solution);
 
-//     if (!section) {
-//       return res.status(422).json({
-//         error: "no sections available",
-//         data: null,
-//       });
-//     }
+    if (solution.length === 0) {
+      return res.status(422).json({
+        error: "no solutions available",
+        data: null,
+      });
+    }
 
-//     return res.status(201).json({
-//       error: null,
-//       data: section,
-//     });
-//   } catch (err) {
-//     console.log(err.message);
-//     return res.status(422).json({
-//       error: "unexpected error occurred while getting section",
-//       data: null,
-//     });
-//   }
-// };
-
+    return res.status(201).json({
+      error: null,
+      data: solution,
+    });
+  } catch (err) {
+    console.log(err.message);
+    return res.status(422).json({
+      error: "unexpected error occurred while getting solution",
+      data: null,
+    });
+  }
+};
 // exports.updateBookstatus = async (req, res) => {};
