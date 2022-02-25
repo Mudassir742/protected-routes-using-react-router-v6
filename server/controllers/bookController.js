@@ -93,7 +93,7 @@ exports.showBooks = async (req, res) => {
   } catch (err) {
     console.log(err.message);
     return res.status(422).json({
-      error: "unexpected error occurred while deleting book",
+      error: "unexpected error occurred while getting books",
       data: null,
     });
   }
