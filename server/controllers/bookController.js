@@ -102,9 +102,14 @@ exports.showBooks = async (req, res) => {
 exports.showBookbyId = async (req, res) => {
   try {
     const bookId = req.params.id;
+
+    if (!bookId) {
+      return res.status(422).json({ error: "book id not given", data: null });
+    }
+
     const book = await Books.findOne({ _id: bookId });
 
-    console.log(book)
+    console.log(book);
 
     if (!book) {
       return res.status(422).json({
@@ -126,4 +131,40 @@ exports.showBookbyId = async (req, res) => {
   }
 };
 
-exports.updateBookInfo = (req, res) => {};
+exports.updateBookstatus = async (req, res) => {
+  try {
+    const bookId = req.params.id;
+    const bookStatus = req.body.status;
+
+    if (!bookStatus || !bookId) {
+      return res.status(422).json({
+        error: "book info not provided",
+        data: null,
+      });
+    }
+
+    const isStatusUpdated = await Books.updateOne(
+      { _id: bookId },
+      { $set: { status: bookStatus } }
+    );
+
+    console.log(isStatusUpdated);
+
+    if (isStatusUpdated.modifiedCount === 0) {
+      return res.status(422).json({
+        error: "unable to update book",
+        data: null,
+      });
+    }
+
+    return res
+      .status(201)
+      .json({ error: null, data: isStatusUpdated.modifiedCount });
+  } catch (err) {
+    console.log(err.message);
+    return res.status(422).json({
+      error: "unexpected error occurred while updating status",
+      data: null,
+    });
+  }
+};
