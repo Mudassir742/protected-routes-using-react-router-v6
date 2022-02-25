@@ -1,4 +1,4 @@
-exports.checkRole = (role) => {
+exports.verifyRole = (role) => {
     return (req,res,next)=>{
 
         const {user} = req
@@ -11,6 +11,6 @@ exports.checkRole = (role) => {
             return next()
         }
 
-        return res.status(404).json({error:'page niot found',data:null})
+        return res.status(404).json({error:'user not authorized for this operation',data:null})
     }
 }
