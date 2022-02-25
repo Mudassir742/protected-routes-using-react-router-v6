@@ -73,8 +73,57 @@ exports.deleteBook = async (req, res) => {
   }
 };
 
-exports.showBooks = (req, res) => {};
+exports.showBooks = async (req, res) => {
+  try {
+    const books = await Books.find({});
 
-exports.showBookbyId = (req, res) => {};
+    console.log(books);
+
+    if (books.length === 0) {
+      return res.status(422).json({
+        error: "no books available",
+        data: null,
+      });
+    }
+
+    return res.status(201).json({
+      error: null,
+      data: books,
+    });
+  } catch (err) {
+    console.log(err.message);
+    return res.status(422).json({
+      error: "unexpected error occurred while deleting book",
+      data: null,
+    });
+  }
+};
+
+exports.showBookbyId = async (req, res) => {
+  try {
+    const bookId = req.params.id;
+    const book = await Books.findOne({ _id: bookId });
+
+    console.log(book)
+
+    if (!book) {
+      return res.status(422).json({
+        error: "no books available",
+        data: null,
+      });
+    }
+
+    return res.status(201).json({
+      error: null,
+      data: book,
+    });
+  } catch (err) {
+    console.log(err.message);
+    return res.status(422).json({
+      error: "unexpected error occurred while getting book",
+      data: null,
+    });
+  }
+};
 
 exports.updateBookInfo = (req, res) => {};

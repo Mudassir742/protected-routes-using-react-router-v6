@@ -17,4 +17,8 @@ router.delete(
   bookController.deleteBook
 );
 
+router.get("/showbooks", verifyToken, bookController.showBooks);
+
+router.get("/showbooks/:id",verifyToken,bookController.showBookbyId)
+
 module.exports = router;
