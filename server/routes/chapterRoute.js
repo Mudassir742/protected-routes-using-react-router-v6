@@ -6,4 +6,5 @@ const { verifyRole } = require("../middleware/restrictToMiddleware");
 
 router.post("/addchapter",verifyToken,verifyRole(["DEO"]),chapterController.addNewChapter)
 
+router.delete("/deletechapter/:id",verifyToken,verifyRole(["DEO"]),chapterController.deleteChapter)
 module.exports = router

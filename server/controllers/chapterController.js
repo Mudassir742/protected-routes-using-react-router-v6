@@ -28,7 +28,35 @@ exports.addNewChapter = async (req, res) => {
   }
 };
 
-exports.deleteChapter = (req, res) => {};
+exports.deleteChapter = async(req, res) => {
+  try {
+    const chapterId = req.params.id;
+
+    if (!chapterId) {
+      return res
+        .status(422)
+        .json({ error: "chapter id not given", data: null });
+    }
+
+    const isChapterDeleted = await Chapters.deleteOne({ _id: chapterId });
+
+    console.log(isChapterDeleted.deletedCount);
+
+    if (!isChapterDeleted.deletedCount) {
+      return res
+        .status(422)
+        .json({ error: "error while deleting chapter", data: null });
+    }
+
+    return res.status(201).json({ error: null, data: isChapterDeleted });
+  } catch (err) {
+    console.log(err.message);
+    return res.status(422).json({
+      error: "unexpected error occurred while deleting chapter",
+      data: null,
+    });
+  }
+};
 exports.showChapters = (req, res) => {};
 exports.showChapterbyId = (req, res) => {};
 exports.updateChapter = (req, res) => {};
