@@ -39,7 +39,7 @@ const bookSchema = mongoose.Schema({
     type: String,
   },
   NA: {
-    type: String,
+    type: Boolean
   },
 });
 

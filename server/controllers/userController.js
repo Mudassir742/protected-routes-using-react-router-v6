@@ -31,7 +31,7 @@ exports.userLogin = async (req, res) => {
         .json({ error: "incorrect email or password", data: null });
     }
 
-    jwt.sign(
+    const token = jwt.sign(
       {
         name: existedUser.name,
         userId: existedUser._id,
@@ -39,32 +39,21 @@ exports.userLogin = async (req, res) => {
         role: existedUser.role,
       },
       process.env.JWT_KEY,
-      { expiresIn: "1h" },
-      async (err, token) => {
-        //if (err) throw err.message;
-        if (err) {
-          console.log(err.message);
-          return res
-            .status(422)
-            .json({ error: "unable to generate token", data: null });
-        }
-
-        console.log(token);
-
-        return res.status(201).json({
-          error: null,
-          data: {
-            name: existedUser.name,
-            userID: existedUser._id,
-            role: existedUser.role,
-            token: token,
-          },
-        });
-      }
+      { expiresIn: "1h" }
     );
+
+    return res.status(201).json({
+      error: null,
+      data: {
+        name: existedUser.name,
+        userID: existedUser._id,
+        role: existedUser.role,
+        token: token,
+      },
+    });
   } catch (err) {
     console.log("Error in Login catch : ", err.message);
-    return res.status(422).json({ error: err.message, data: null });
+    return res.status(500).json({ error: err.message, data: null });
   }
 };
 exports.addNewUser = async (req, res) => {
@@ -83,19 +72,17 @@ exports.addNewUser = async (req, res) => {
         .json({ error: "email already exists", data: null });
     }
 
-    const encryptedPasswrod = await bcrypt.hash(password, 10);
-
     const newUser = new User({
       name,
       email,
-      password: encryptedPasswrod,
+      password,
       role,
     });
 
     const registerUser = await newUser.save();
 
     if (registerUser) {
-      return res.status(201).json({
+      return res.status(200).json({
         error: null,
         data: { userID: registerUser._id, name: registerUser.name },
       });
@@ -107,7 +94,7 @@ exports.addNewUser = async (req, res) => {
   } catch (err) {
     console.log(err.message);
     return res
-      .status(422)
+      .status(500)
       .json({ error: "unexpected error occurred", data: null });
   }
 };

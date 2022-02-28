@@ -15,11 +15,15 @@ const chapterSchema = mongoose.Schema({
     rquired: [true, "enter book chapter number"],
   },
   totalQuestions: {
-    type: String,
+    type: Number,
   },
   totalSections: {
-    type: String,
+    type: Number,
   },
 });
+
+chapterSchema.statics.getChaptersFromBook = async function (bookId) {
+  return this.find({ bookId }, { name: 1, chapterNumber: 1, _id: 1 });
+};
 
 module.exports = mongoose.model("chapters", chapterSchema);

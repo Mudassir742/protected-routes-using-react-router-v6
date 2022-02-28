@@ -18,7 +18,7 @@ const solutionSchema = mongoose.Schema({
   },
   questionNumber: {
     type: String,
-    rquired: [true, "enter question number"],
+    required: [true, "enter question number"],
   },
   questionDetail: {
     type: String,

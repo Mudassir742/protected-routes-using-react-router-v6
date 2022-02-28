@@ -1,5 +1,5 @@
 const Books = require("../models/bookModel");
-
+const Chapter = require("../models/chapterModel")
 exports.addNewBook = async (req, res) => {
   try {
     const { title, description, ISBN, author, publisher, status, assignedTo } =
@@ -101,15 +101,15 @@ exports.showBooks = async (req, res) => {
 
 exports.showBookbyId = async (req, res) => {
   try {
-    const bookId = req.params.id;
+    const {id:bookId} = req.params;
 
     if (!bookId) {
       return res.status(422).json({ error: "book id not given", data: null });
     }
 
     const book = await Books.findOne({ _id: bookId });
-
-    console.log(book);
+    const bookChapters=await Chapter.getChaptersFromBook(bookId)
+    // console.log({...book,...bookChapters});
 
     if (!book) {
       return res.status(422).json({
@@ -120,7 +120,7 @@ exports.showBookbyId = async (req, res) => {
 
     return res.status(201).json({
       error: null,
-      data: book,
+      data: {...book._doc,...bookChapters},
     });
   } catch (err) {
     console.log(err.message);

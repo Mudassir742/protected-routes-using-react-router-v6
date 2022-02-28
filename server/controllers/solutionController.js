@@ -113,7 +113,7 @@ exports.showSolutionbyId = async (req, res) => {
 
     console.log(solution);
 
-    if (solution.length === 0) {
+    if (!solution) {
       return res.status(422).json({
         error: "no solutions available",
         data: null,

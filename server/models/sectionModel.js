@@ -13,10 +13,10 @@ const sectionSchema = mongoose.Schema({
   },
   name: {
     type: String,
-    rquired: [true, "enter book section name"],
+    required: [true, "enter book section name"],
   },
   totalQuestions: {
-    type: String,
+    type: Number,
   },
 });
 
