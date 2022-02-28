@@ -19,7 +19,7 @@ const authenticateToken = (req, res, next) => {
     console.log(err.message);
     return res
       .status(500)
-      .json({ error: "unexpected error while comparing token", data: null });
+      .json({ error: "invalid request", data: null });
   }
 };
 
