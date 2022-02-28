@@ -18,10 +18,10 @@ exports.addNewChapter = async (req, res) => {
       return res.status(422).json({ error: "Chapter not created", data: null });
     }
 
-    return res.status(201).json({ error: null, data: newChapter });
+    return res.status(200).json({ error: null, data: newChapter });
   } catch (err) {
     console.log(err.message);
-    return res.status(422).json({
+    return res.status(500).json({
       error: "unexpected error occurred while creating chapter",
       data: null,
     });
@@ -48,10 +48,10 @@ exports.deleteChapter = async (req, res) => {
         .json({ error: "error while deleting chapter", data: null });
     }
 
-    return res.status(201).json({ error: null, data: isChapterDeleted });
+    return res.status(200).json({ error: null, data: isChapterDeleted });
   } catch (err) {
     console.log(err.message);
-    return res.status(422).json({
+    return res.status(500).json({
       error: "unexpected error occurred while deleting chapter",
       data: null,
     });
@@ -70,13 +70,13 @@ exports.showChapters = async (req, res) => {
       });
     }
 
-    return res.status(201).json({
+    return res.status(200).json({
       error: null,
       data: chapters,
     });
   } catch (err) {
     console.log(err.message);
-    return res.status(422).json({
+    return res.status(500).json({
       error: "unexpected error occurred while getting chapters",
       data: null,
     });
@@ -103,13 +103,13 @@ exports.showChapterbyId = async (req, res) => {
       });
     }
 
-    return res.status(201).json({
+    return res.status(200).json({
       error: null,
       data: chapter,
     });
   } catch (err) {
     console.log(err.message);
-    return res.status(422).json({
+    return res.status(500).json({
       error: "unexpected error occurred while getting chapter",
       data: null,
     });

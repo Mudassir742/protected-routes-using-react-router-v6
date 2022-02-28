@@ -33,10 +33,10 @@ exports.addNewSolution = async (req, res) => {
         .json({ error: "solution not created", data: null });
     }
 
-    return res.status(201).json({ error: null, data: newSolution });
+    return res.status(200).json({ error: null, data: newSolution });
   } catch (err) {
     console.log(err.message);
-    return res.status(422).json({
+    return res.status(500).json({
       error: "unexpected error occurred while creating solution",
       data: null,
     });
@@ -63,10 +63,10 @@ exports.deleteSolution = async (req, res) => {
         .json({ error: "error while deleting solution", data: null });
     }
 
-    return res.status(201).json({ error: null, data: isSolutionDeleted });
+    return res.status(200).json({ error: null, data: isSolutionDeleted });
   } catch (err) {
     console.log(err.message);
-    return res.status(422).json({
+    return res.status(500).json({
       error: "unexpected error occurred while deleting solution",
       data: null,
     });
@@ -86,13 +86,13 @@ exports.showSolutions = async (req, res) => {
       });
     }
 
-    return res.status(201).json({
+    return res.status(200).json({
       error: null,
       data: solutions,
     });
   } catch (err) {
     console.log(err.message);
-    return res.status(422).json({
+    return res.status(500).json({
       error: "unexpected error occurred while getting solutions",
       data: null,
     });
@@ -120,13 +120,13 @@ exports.showSolutionbyId = async (req, res) => {
       });
     }
 
-    return res.status(201).json({
+    return res.status(200).json({
       error: null,
       data: solution,
     });
   } catch (err) {
     console.log(err.message);
-    return res.status(422).json({
+    return res.status(500).json({
       error: "unexpected error occurred while getting solution",
       data: null,
     });

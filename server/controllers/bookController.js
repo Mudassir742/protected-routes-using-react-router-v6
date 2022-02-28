@@ -1,5 +1,5 @@
 const Books = require("../models/bookModel");
-const Chapter = require("../models/chapterModel")
+const Chapter = require("../models/chapterModel");
 exports.addNewBook = async (req, res) => {
   try {
     const { title, description, ISBN, author, publisher, status, assignedTo } =
@@ -35,10 +35,10 @@ exports.addNewBook = async (req, res) => {
       return res.status(422).json({ error: "Book not created", data: null });
     }
 
-    return res.status(201).json({ error: null, data: newBook });
+    return res.status(200).json({ error: null, data: newBook });
   } catch (err) {
     console.log(err.message);
-    return res.status(422).json({
+    return res.status(500).json({
       error: "unexpected error occurred while creating book",
       data: null,
     });
@@ -63,10 +63,10 @@ exports.deleteBook = async (req, res) => {
         .json({ error: "error while deleting book", data: null });
     }
 
-    return res.status(201).json({ error: null, data: isBookDeleted });
+    return res.status(200).json({ error: null, data: isBookDeleted });
   } catch (err) {
     console.log(err.message);
-    return res.status(422).json({
+    return res.status(500).json({
       error: "unexpected error occurred while deleting book",
       data: null,
     });
@@ -86,13 +86,13 @@ exports.showBooks = async (req, res) => {
       });
     }
 
-    return res.status(201).json({
+    return res.status(200).json({
       error: null,
       data: books,
     });
   } catch (err) {
     console.log(err.message);
-    return res.status(422).json({
+    return res.status(500).json({
       error: "unexpected error occurred while getting books",
       data: null,
     });
@@ -101,14 +101,14 @@ exports.showBooks = async (req, res) => {
 
 exports.showBookbyId = async (req, res) => {
   try {
-    const {id:bookId} = req.params;
+    const { id: bookId } = req.params;
 
     if (!bookId) {
       return res.status(422).json({ error: "book id not given", data: null });
     }
 
     const book = await Books.findOne({ _id: bookId });
-    const bookChapters=await Chapter.getChaptersFromBook(bookId)
+    const bookChapters = await Chapter.getChaptersFromBook(bookId);
     // console.log({...book,...bookChapters});
 
     if (!book) {
@@ -118,13 +118,13 @@ exports.showBookbyId = async (req, res) => {
       });
     }
 
-    return res.status(201).json({
+    return res.status(200).json({
       error: null,
-      data: {...book._doc,...bookChapters},
+      data: { ...book._doc, ...bookChapters },
     });
   } catch (err) {
     console.log(err.message);
-    return res.status(422).json({
+    return res.status(500).json({
       error: "unexpected error occurred while getting book",
       data: null,
     });
@@ -158,11 +158,11 @@ exports.updateBookstatus = async (req, res) => {
     }
 
     return res
-      .status(201)
+      .status(200)
       .json({ error: null, data: isStatusUpdated.modifiedCount });
   } catch (err) {
     console.log(err.message);
-    return res.status(422).json({
+    return res.status(500).json({
       error: "unexpected error occurred while updating status",
       data: null,
     });

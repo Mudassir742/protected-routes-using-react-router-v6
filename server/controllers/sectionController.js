@@ -22,10 +22,10 @@ exports.addNewSection = async (req, res) => {
       return res.status(422).json({ error: "section not created", data: null });
     }
 
-    return res.status(201).json({ error: null, data: newSection });
+    return res.status(200).json({ error: null, data: newSection });
   } catch (err) {
     console.log(err.message);
-    return res.status(422).json({
+    return res.status(500).json({
       error: "unexpected error occurred while creating section",
       data: null,
     });
@@ -50,10 +50,10 @@ exports.deleteSection = async (req, res) => {
         .json({ error: "error while deleting section", data: null });
     }
 
-    return res.status(201).json({ error: null, data: isSectionDeleted });
+    return res.status(200).json({ error: null, data: isSectionDeleted });
   } catch (err) {
     console.log(err.message);
-    return res.status(422).json({
+    return res.status(500).json({
       error: "unexpected error occurred while deleting section",
       data: null,
     });
@@ -73,13 +73,13 @@ exports.showSections = async (req, res) => {
       });
     }
 
-    return res.status(201).json({
+    return res.status(200).json({
       error: null,
       data: sections,
     });
   } catch (err) {
     console.log(err.message);
-    return res.status(422).json({
+    return res.status(500).json({
       error: "unexpected error occurred while getting sections",
       data: null,
     });
@@ -107,13 +107,13 @@ exports.showSectionbyId = async (req, res) => {
       });
     }
 
-    return res.status(201).json({
+    return res.status(200).json({
       error: null,
       data: section,
     });
   } catch (err) {
     console.log(err.message);
-    return res.status(422).json({
+    return res.status(500).json({
       error: "unexpected error occurred while getting section",
       data: null,
     });
